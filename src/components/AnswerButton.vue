@@ -10,11 +10,11 @@ defineProps<{
   onClick: (questionNumber: number, answerIndex: number) => void
 }>()
 
-const { questionNumber } = useQuestionNumberStore()
+const questionNumberStore = useQuestionNumberStore()
 </script>
 
 <template>
-  <Button @click="() => onClick(questionNumber, index)" :content="`${option}: ${answerContent}`" />
+  <Button @click="() => onClick(questionNumberStore.questionNumber, index)" :content="`${option}: ${answerContent}`" />
 </template>
 
 <style scoped></style>

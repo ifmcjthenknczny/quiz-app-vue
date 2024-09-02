@@ -9,11 +9,10 @@ defineProps<{
   answers: string[]
 }>()
 
-
-const { incrementQuestionNumber } = useQuestionNumberStore()
+const questionNumberStore = useQuestionNumberStore()
 
 const handleAnswerClick = (questionNumber: number, answerIndex: number) => {
-  incrementQuestionNumber()
+  questionNumberStore.questionNumber = questionNumberStore.questionNumber + 1;
   console.log(`Question ${questionNumber}: Selected answer ${answerIndex}`)
 }
 
@@ -24,6 +23,7 @@ const toOptionLetter = (index: number): Option => {
 
 <template>
   <div>
+    <h5>Question number {{ questionNumberStore.questionNumber + 1 }}</h5>
     <h2>{{ decodeHtml(question) }}</h2>
 
     <div>
