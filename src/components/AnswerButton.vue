@@ -1,19 +1,20 @@
 <script setup lang="ts">
+import { useQuestionNumberStore } from '@/store/useQuestionNumberStore'
 import Button from './Button.vue'
-export type Option = 'A | B | C | D'
+export type Option = string
 
 defineProps<{
-    option: Option
-    answerContent: string
-    questionNumber: number
-    onClick: (questionNumber: number, answer: string) => void
+  option: Option
+  answerContent: string
+  index: number
+  onClick: (questionNumber: number, answerIndex: number) => void
 }>()
+
+const { questionNumber } = useQuestionNumberStore()
 </script>
 
 <template>
-    <Button @click="() => onClick(questionNumber, answerContent)" :content="`${option}: ${answerContent}`"" />
+  <Button @click="() => onClick(questionNumber, index)" :content="`${option}: ${answerContent}`" />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

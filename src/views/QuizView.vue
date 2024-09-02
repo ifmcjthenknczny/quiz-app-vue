@@ -10,8 +10,6 @@
         <RouterLink to="/about">Next</RouterLink>
       </nav>
     </div>
-
-  <RouterView />
 </template>
 
 <style scoped>
