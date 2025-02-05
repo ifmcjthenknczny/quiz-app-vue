@@ -10,7 +10,7 @@ defineProps<{
 const questionNumberStore = useQuestions()
 
 const onClick = (questionNumber: number) => {
-  questionNumberStore.questionNumber = questionNumber
+  questionNumberStore.setQuestionNumber(questionNumber)
 }
 </script>
 

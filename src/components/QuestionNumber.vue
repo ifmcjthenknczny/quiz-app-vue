@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useQuestionNumberStore } from '@/store/useQuestions'
+import { useQuestions } from '@/store/useQuestions'
 
 defineProps<{
   questionNumber: number
@@ -7,7 +7,7 @@ defineProps<{
   highlightIfAnswered?: true
 }>()
 
-const questionNumberStore = useQuestionNumberStore()
+const questionNumberStore = useQuestions()
 
 const onClick = (questionNumber: number) => {
   questionNumberStore.questionNumber = questionNumber

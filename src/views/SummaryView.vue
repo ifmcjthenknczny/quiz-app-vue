@@ -3,23 +3,25 @@ import { useQuestions } from '@/store/useQuestions'
 import { QUESTION_COUNT } from '@/config'
 import { useRouter } from 'vue-router'
 import { routes } from '@/routes'
-import { onMounted } from 'vue'
+import { onMounted, computed } from 'vue'
 
 const questionNumberStore = useQuestions()
 
-const correctAnswers = Object.entries(questionNumberStore.selectedAnswers)
-  .filter(([index, answer]) => questionNumberStore.correctAnswers[+index] === answer)
-  .map(([index]) => +index)
+const correctAnswers = computed(() =>
+  Object.entries(questionNumberStore.selectedAnswers)
+    .filter(([index, answer]) => questionNumberStore.correctAnswers[+index] === answer)
+    .map(([index]) => +index)
+)
 
 const router = useRouter()
 
 const onClick = () => {
+  questionNumberStore.reset()
   router.push(routes.home)
-//   TODO: Reset the selectedAnswers object in the store
 }
 
 onMounted(() => {
-  if (Object.keys(questionNumberStore.selectedAnswers).length !== QUESTION_COUNT) {
+  if (questionNumberStore.answeredQuestions !== QUESTION_COUNT) {
     router.push(routes.home)
   }
 })

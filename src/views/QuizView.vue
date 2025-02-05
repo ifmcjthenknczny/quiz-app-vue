@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import { shuffle } from '@/helpers/array'
 import Question from '@/components/Question.vue'
@@ -52,13 +52,13 @@ const fetchData = async () => {
       throw new Error('Failed to fetch data')
     }
     quiz.value = response.data.results.map(toQuizElement)
-    questionNumberStore.correctAnswers = quiz.value.reduce(
+    questionNumberStore.setCorrectAnswers(quiz.value.reduce(
       (acc, question, index) => {
         acc[index] = question.correctOption
         return acc
       },
       {} as Record<number, number>
-    )
+    ))
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'An error occurred'
   } finally {
@@ -68,7 +68,6 @@ const fetchData = async () => {
 
 onMounted(() => {
   fetchData()
-  questionNumberStore.$reset()
 })
 </script>
 

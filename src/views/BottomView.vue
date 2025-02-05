@@ -4,8 +4,7 @@ import { useQuestions } from '@/store/useQuestions'
 defineProps<{
   questionsCount: number
 }>()
-useQuestions
-const questionNumberStore = useQuestionNumberStore()
+const questionNumberStore = useQuestions()
 
 const decrementQuestionNumber = () => {
   questionNumberStore.questionNumber--
