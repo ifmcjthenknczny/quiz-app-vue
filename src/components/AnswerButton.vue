@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useQuestionNumberStore } from '@/store/useQuestionNumberStore'
+import { useQuestions } from '@/store/useQuestions'
 import Button from './Button.vue'
 export type Option = string
 
@@ -10,11 +10,14 @@ defineProps<{
   onClick: (questionNumber: number, answerIndex: number) => void
 }>()
 
-const questionNumberStore = useQuestionNumberStore()
+const questionNumberStore = useQuestions()
 </script>
 
 <template>
-  <Button @click="() => onClick(questionNumberStore.questionNumber, index)" :content="`${option}: ${answerContent}`" />
+  <Button
+    @click="() => onClick(questionNumberStore.questionNumber, index)"
+    :content="`${option}: ${answerContent}`"
+  />
 </template>
 
 <style scoped></style>

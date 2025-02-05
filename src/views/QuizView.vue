@@ -3,7 +3,9 @@ import { reactive, ref, onMounted } from 'vue'
 import axios from 'axios'
 import { shuffle } from '@/helpers/array'
 import Question from '@/components/Question.vue'
-import { useQuestionNumberStore } from '@/store/useQuestionNumberStore'
+import QuestionLink from '@/components/QuestionLink.vue'
+import { useQuestions } from '@/store/useQuestions'
+import { QUESTION_COUNT } from '@/config'
 
 type QuestionData = {
   type: 'boolean' | 'multiple'
@@ -20,7 +22,7 @@ type Quiz = QuizElement[]
 const quiz = ref<Quiz | null>(null)
 const isLoading = ref(true)
 const error = ref<null | string>(null)
-const FETCH_URL = 'https://opentdb.com/api.php?amount=12&category=21&difficulty=easy&type=multiple'
+const FETCH_URL = `https://opentdb.com/api.php?amount=${QUESTION_COUNT}&category=21&difficulty=easy&type=multiple`
 
 type ApiQuestionsResponse = {
   response_code: number
@@ -41,6 +43,8 @@ const toQuizElement = (questionData: QuestionData): QuizElement => {
   }
 }
 
+const questionNumberStore = useQuestions()
+
 const fetchData = async () => {
   try {
     const response = await axios.get<ApiQuestionsResponse>(FETCH_URL)
@@ -48,6 +52,13 @@ const fetchData = async () => {
       throw new Error('Failed to fetch data')
     }
     quiz.value = response.data.results.map(toQuizElement)
+    questionNumberStore.correctAnswers = quiz.value.reduce(
+      (acc, question, index) => {
+        acc[index] = question.correctOption
+        return acc
+      },
+      {} as Record<number, number>
+    )
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'An error occurred'
   } finally {
@@ -57,24 +68,60 @@ const fetchData = async () => {
 
 onMounted(() => {
   fetchData()
+  questionNumberStore.$reset()
 })
-
-const questionNumberStore = useQuestionNumberStore()
 </script>
 
 <template>
   <main>
-    <div v-if="isLoading">Loading...</div>
+    <div>
+      <div v-if="isLoading">Loading...</div>
 
-    <div v-if="error">Error: {{ error }}</div>
+      <div v-if="error">Error: {{ error }}</div>
 
-    <div v-else-if="quiz">
-      <Question
-        :question="quiz[questionNumberStore.questionNumber]?.question"
-        :answers="quiz[questionNumberStore.questionNumber]?.options"
+      <div v-else-if="quiz" class="quiz-container">
+        <QuestionLink
+          v-if="questionNumberStore.questionNumber > 0"
+          :questionNumber="questionNumberStore.questionNumber"
+          content="←"
+        />
+        <Question
+          :question="quiz[questionNumberStore.questionNumber]?.question"
+          :answers="quiz[questionNumberStore.questionNumber]?.options"
+        />
+        <QuestionLink
+          v-if="questionNumberStore.questionNumber < QUESTION_COUNT - 1"
+          :questionNumber="questionNumberStore.questionNumber + 2"
+          content="→"
+        />
+      </div>
+
+      <div v-else>No data</div>
+    </div>
+    <div class="question-numbers-container">
+      <QuestionLink
+        v-for="index in QUESTION_COUNT"
+        :key="index"
+        :questionNumber="index"
+        :highlightIfAnswered="true"
       />
     </div>
   </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+.question-numbers-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.quiz-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+</style>

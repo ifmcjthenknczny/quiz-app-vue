@@ -2,18 +2,32 @@
 import { decodeHtml } from '@/helpers/string'
 import AnswerButton from './AnswerButton.vue'
 import type { Option } from './AnswerButton.vue'
-import { useQuestionNumberStore } from '@/store/useQuestionNumberStore'
+import { useQuestions } from '@/store/useQuestions'
+import { QUESTION_COUNT } from '@/config'
+import { sortedRange } from '@/helpers/array'
+import { useRouter } from 'vue-router'
+import { routes } from '@/routes'
 
 defineProps<{
   question: string
   answers: string[]
 }>()
 
-const questionNumberStore = useQuestionNumberStore()
+const router = useRouter()
+const questionNumberStore = useQuestions()
 
 const handleAnswerClick = (questionNumber: number, answerIndex: number) => {
-  questionNumberStore.questionNumber = questionNumberStore.questionNumber + 1;
-  console.log(`Question ${questionNumber}: Selected answer ${answerIndex}`)
+  questionNumberStore.selectedAnswers[questionNumber] = answerIndex
+
+  const nextQuestionNumber = sortedRange(0, QUESTION_COUNT - 1, questionNumber).filter(
+    (key) => !questionNumberStore.selectedAnswers.hasOwnProperty(key)
+  )[0]
+
+  if (Object.keys(questionNumberStore.selectedAnswers).length < QUESTION_COUNT) {
+    questionNumberStore.questionNumber = nextQuestionNumber
+    return
+  }
+  router.push(routes.summary)
 }
 
 const toOptionLetter = (index: number): Option => {
@@ -22,11 +36,11 @@ const toOptionLetter = (index: number): Option => {
 </script>
 
 <template>
-  <div>
-    <h5>Question number {{ questionNumberStore.questionNumber + 1 }}</h5>
-    <h2>{{ decodeHtml(question) }}</h2>
+  <div class="question-container">
+    <h5 class="question-number">Question number {{ questionNumberStore.questionNumber + 1 }}</h5>
+    <h2 class="question-text">{{ decodeHtml(question) }}</h2>
 
-    <div>
+    <div class="answers-container">
       <AnswerButton
         v-for="(answer, index) in answers"
         :key="index"
@@ -40,13 +54,13 @@ const toOptionLetter = (index: number): Option => {
 </template>
 
 <style scoped>
-h2 {
+.question-text {
   margin-bottom: 20px;
 }
 
-div {
-  display: flex;
-  flex-direction: column;
+.answers-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
 }
 </style>
