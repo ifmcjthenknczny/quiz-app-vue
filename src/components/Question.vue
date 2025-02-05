@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { decodeHtml } from '@/helpers/string'
 import AnswerButton from './AnswerButton.vue'
-import type { Option } from './AnswerButton.vue'
 import { useQuestions } from '@/store/useQuestions'
 import { QUESTION_COUNT } from '@/config'
 import { sortedRange } from '@/helpers/array'
 import { useRouter } from 'vue-router'
 import { routes } from '@/routes'
+import { toOptionLetter } from '@/helpers/question'
 
 defineProps<{
   question: string
@@ -29,18 +29,16 @@ const handleAnswerClick = (questionNumber: number, answerIndex: number) => {
   }
   router.push(routes.summary)
 }
-
-const toOptionLetter = (index: number): Option => {
-  return String.fromCharCode(65 + index)
-}
 </script>
 
 <template>
-  <div class="question-container">
-    <h5 class="question-number">Question number {{ questionNumberStore.questionNumber + 1 }}</h5>
-    <h2 class="question-text">{{ decodeHtml(question) }}</h2>
+  <div class="question">
+    <div>
+    <h5 class="question-text">Question number {{ questionNumberStore.questionNumber + 1 }}</h5>
+    <h2>{{ decodeHtml(question) }}</h2>
+  </div>
 
-    <div class="answers-container">
+    <div class="answers">
       <AnswerButton
         v-for="(answer, index) in answers"
         :key="index"
@@ -54,13 +52,24 @@ const toOptionLetter = (index: number): Option => {
 </template>
 
 <style scoped>
-.question-text {
-  margin-bottom: 20px;
+.question {
+  border: 1px solid #ccc;
+  padding: 16px;
+  border-radius: 8px;
+  width: 100%;
+  height: 256px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.answers-container {
+.answers {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.question-text {
+  margin-bottom: 20px;
 }
 </style>

@@ -31,7 +31,7 @@ onMounted(() => {
   <div class="summary-container">
     <h1>END OF QUIZ</h1>
     <h5>Your score: {{ correctAnswers.length }} / {{ QUESTION_COUNT }}</h5>
-    <button @click="onClick">Restart Quiz</button>
+    <button @click="onClick" class="restart-button">Restart Quiz</button>
   </div>
 </template>
 
@@ -43,5 +43,18 @@ onMounted(() => {
   align-items: center;
   height: 100vh;
   font-size: 2rem;
+}
+
+.restart-button {
+  margin-top: 16px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  background-color: #007bff;
+  color: white;
+  font-size: 12px;
+  border: none;
+  cursor: pointer;
+  height: 48px;
+  width: 128px;
 }
 </style>

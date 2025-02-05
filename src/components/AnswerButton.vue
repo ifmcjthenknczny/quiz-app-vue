@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { useQuestions } from '@/store/useQuestions'
 import Button from './Button.vue'
-export type Option = string
+import { Option, toOptionColor } from '@/helpers/question'
+import { computed } from 'vue';
 
-defineProps<{
+const props = defineProps<{
   option: Option
   answerContent: string
   index: number
@@ -11,13 +12,20 @@ defineProps<{
 }>()
 
 const questionNumberStore = useQuestions()
+const color = computed(() => toOptionColor(props.index))
 </script>
 
 <template>
   <Button
     @click="() => onClick(questionNumberStore.questionNumber, index)"
     :content="`${option}: ${answerContent}`"
+    class="answer-button"
+    :style="{ backgroundColor: color }"
   />
 </template>
 
-<style scoped></style>
+<style scoped>
+.answer-button {
+  min-height: 36px;
+}
+</style>

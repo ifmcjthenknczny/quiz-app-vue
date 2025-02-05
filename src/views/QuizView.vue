@@ -6,6 +6,8 @@ import Question from '@/components/Question.vue'
 import QuestionLink from '@/components/QuestionLink.vue'
 import { useQuestions } from '@/store/useQuestions'
 import { QUESTION_COUNT } from '@/config'
+import ErrorMessage from '@/components/ErrorMessage.vue'
+import Loader from '@/components/Loader.vue'
 
 type QuestionData = {
   type: 'boolean' | 'multiple'
@@ -72,32 +74,22 @@ onMounted(() => {
 </script>
 
 <template>
-  <main>
+  <main class="quiz-view">
     <div>
-      <div v-if="isLoading">Loading...</div>
+      <div v-if="isLoading"><Loader /></div>
 
-      <div v-if="error">Error: {{ error }}</div>
+      <div v-else-if="error"><ErrorMessage :message="error" /></div>
 
       <div v-else-if="quiz" class="quiz-container">
-        <QuestionLink
-          v-if="questionNumberStore.questionNumber > 0"
-          :questionNumber="questionNumberStore.questionNumber"
-          content="←"
-        />
         <Question
           :question="quiz[questionNumberStore.questionNumber]?.question"
           :answers="quiz[questionNumberStore.questionNumber]?.options"
-        />
-        <QuestionLink
-          v-if="questionNumberStore.questionNumber < QUESTION_COUNT - 1"
-          :questionNumber="questionNumberStore.questionNumber + 2"
-          content="→"
         />
       </div>
 
       <div v-else>No data</div>
     </div>
-    <div class="question-numbers-container">
+    <div v-if="quiz" class="question-numbers-container">
       <QuestionLink
         v-for="index in QUESTION_COUNT"
         :key="index"
@@ -122,5 +114,9 @@ onMounted(() => {
   flex-direction: row;
   align-items: center;
   gap: 20px;
+}
+
+.quiz-view {
+  width: 768px;
 }
 </style>
