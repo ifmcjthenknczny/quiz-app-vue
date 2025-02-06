@@ -7,7 +7,7 @@ import QuestionLink from '@/components/QuestionLink.vue'
 import { useQuestions } from '@/store/useQuestions'
 import { QUESTION_COUNT } from '@/config'
 import ErrorMessage from '@/components/ErrorMessage.vue'
-import Loader from '@/components/Loader.vue'
+import Loader from '@/components/LoaderComponent.vue'
 
 type QuestionData = {
   type: 'boolean' | 'multiple'
