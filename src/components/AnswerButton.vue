@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useQuestions } from '@/store/useQuestions'
-import Button from './Button.vue'
+import Button from './LinkButton.vue'
 import { Option, toOptionColor } from '@/helpers/question'
-import { computed } from 'vue';
+import { computed } from 'vue'
 
 const props = defineProps<{
   option: Option
@@ -11,17 +11,18 @@ const props = defineProps<{
   onClick: (questionNumber: number, answerIndex: number) => void
 }>()
 
-const questionNumberStore = useQuestions()
+const questionStore = useQuestions()
 const color = computed(() => toOptionColor(props.index))
 </script>
 
 <template>
-  <Button
-    @click="() => onClick(questionNumberStore.questionNumber, index)"
-    :content="`${option}: ${answerContent}`"
+  <button
+    @click="() => onClick(questionStore.questionIndex, index)"
     class="answer-button"
     :style="{ backgroundColor: color }"
-  />
+  >
+    {{ option }}: {{ answerContent }}
+  </button>
 </template>
 
 <style scoped>

@@ -45,7 +45,7 @@ const toQuizElement = (questionData: QuestionData): QuizElement => {
   }
 }
 
-const questionNumberStore = useQuestions()
+const questionStore = useQuestions()
 
 const fetchData = async () => {
   try {
@@ -54,13 +54,14 @@ const fetchData = async () => {
       throw new Error('Failed to fetch data')
     }
     quiz.value = response.data.results.map(toQuizElement)
-    questionNumberStore.setCorrectAnswers(quiz.value.reduce(
-      (acc, question, index) => {
-        acc[index] = question.correctOption
-        return acc
-      },
-      {} as Record<number, number>
-    ))
+    const correctAnswers = quiz.value.reduce(
+        (acc, question, index) => {
+          acc[index] = question.correctOption
+          return acc
+        },
+        {} as Record<number, number>
+      )
+    questionStore.setCorrectAnswers(correctAnswers)
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'An error occurred'
   } finally {
@@ -82,8 +83,8 @@ onMounted(() => {
 
       <div v-else-if="quiz" class="quiz-container">
         <Question
-          :question="quiz[questionNumberStore.questionNumber]?.question"
-          :answers="quiz[questionNumberStore.questionNumber]?.options"
+          :question="quiz[questionStore.questionIndex]?.question"
+          :answers="quiz[questionStore.questionIndex]?.options"
         />
       </div>
 

@@ -7,6 +7,7 @@ import { sortedRange } from '@/helpers/array'
 import { useRouter } from 'vue-router'
 import { routes } from '@/routes'
 import { toOptionLetter } from '@/helpers/question'
+import { toQuestionNumber } from '@/helpers/question'
 
 defineProps<{
   question: string
@@ -14,29 +15,26 @@ defineProps<{
 }>()
 
 const router = useRouter()
-const questionNumberStore = useQuestions()
+const questionStore = useQuestions()
 
 const handleAnswerClick = (questionNumber: number, answerIndex: number) => {
-  questionNumberStore.selectedAnswers[questionNumber] = answerIndex
+  questionStore.selectAnswer(questionNumber, answerIndex)
 
-  const nextQuestionNumber = sortedRange(0, QUESTION_COUNT - 1, questionNumber).filter(
-    (key) => !questionNumberStore.selectedAnswers.hasOwnProperty(key)
-  )[0]
-
-  if (Object.keys(questionNumberStore.selectedAnswers).length < QUESTION_COUNT) {
-    questionNumberStore.questionNumber = nextQuestionNumber
+  if (Object.keys(questionStore.selectedAnswers).length >= QUESTION_COUNT) {
+    router.push(routes.summary)
     return
+  } else {
+    questionStore.setQuestionNumber(questionStore.nextQuestionIndex)
   }
-  router.push(routes.summary)
 }
 </script>
 
 <template>
   <div class="question">
     <div>
-    <h5 class="question-text">Question number {{ questionNumberStore.questionNumber + 1 }}</h5>
-    <h2>{{ decodeHtml(question) }}</h2>
-  </div>
+      <h5 class="question-text">Question number {{ toQuestionNumber(questionStore.questionIndex) }}</h5>
+      <h2>{{ decodeHtml(question) }}</h2>
+    </div>
 
     <div class="answers">
       <AnswerButton

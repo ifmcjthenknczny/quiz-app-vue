@@ -1,13 +1,15 @@
+import { sortedRange } from './../helpers/array'
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
+import { QUESTION_COUNT } from '@/config'
 
 export const useQuestions = defineStore('questions', () => {
-  const questionNumber = ref(0)
+  const questionIndex = ref(0)
   const selectedAnswers = ref<Record<number, number>>({})
   const correctAnswers = ref<Record<number, number>>({})
 
   function reset() {
-    questionNumber.value = 0
+    questionIndex.value = 0
     selectedAnswers.value = {}
     correctAnswers.value = {}
   }
@@ -20,31 +22,29 @@ export const useQuestions = defineStore('questions', () => {
     correctAnswers.value = answers
   }
 
-  function decrementQuestionNumber() {
-    questionNumber.value--
-  }
-
   function setQuestionNumber(number: number) {
-    questionNumber.value = number
+    questionIndex.value = number
   }
 
-  function incrementQuestionNumber() {
-    questionNumber.value++
-  }
+  const nextQuestionIndex = computed(
+    () =>
+      sortedRange(0, QUESTION_COUNT - 1, questionIndex.value).filter(
+        (key) => !(key in selectedAnswers.value)
+      )[0]
+  )
 
   const totalQuestions = computed(() => Object.keys(correctAnswers.value).length)
   const answeredQuestions = computed(() => Object.keys(selectedAnswers.value).length)
 
   return {
-    questionNumber,
+    questionIndex,
     selectedAnswers,
     correctAnswers,
     reset,
     selectAnswer,
     setCorrectAnswers,
-    decrementQuestionNumber,
     setQuestionNumber,
-    incrementQuestionNumber,
+    nextQuestionIndex,
     totalQuestions,
     answeredQuestions
   }

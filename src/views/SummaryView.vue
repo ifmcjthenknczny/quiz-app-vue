@@ -4,24 +4,25 @@ import { QUESTION_COUNT } from '@/config'
 import { useRouter } from 'vue-router'
 import { routes } from '@/routes'
 import { onMounted, computed } from 'vue'
+import LinkButton from '@/components/LinkButton.vue'
 
-const questionNumberStore = useQuestions()
+const questionStore = useQuestions()
 
 const correctAnswers = computed(() =>
-  Object.entries(questionNumberStore.selectedAnswers)
-    .filter(([index, answer]) => questionNumberStore.correctAnswers[+index] === answer)
+  Object.entries(questionStore.selectedAnswers)
+    .filter(([index, answer]) => questionStore.correctAnswers[+index] === answer)
     .map(([index]) => +index)
 )
 
 const router = useRouter()
 
 const onClick = () => {
-  questionNumberStore.reset()
+  questionStore.reset()
   router.push(routes.quiz)
 }
 
 onMounted(() => {
-  if (questionNumberStore.answeredQuestions !== QUESTION_COUNT) {
+  if (questionStore.answeredQuestions !== QUESTION_COUNT) {
     router.push(routes.quiz)
   }
 })
@@ -31,7 +32,7 @@ onMounted(() => {
   <div class="summary-container">
     <h1>END OF QUIZ</h1>
     <h5>Your score: {{ correctAnswers.length }} / {{ QUESTION_COUNT }}</h5>
-    <button @click="onClick" class="restart-button">Restart Quiz</button>
+    <LinkButton @click="onClick">Restart Quiz</LinkButton>
   </div>
 </template>
 
@@ -43,18 +44,5 @@ onMounted(() => {
   align-items: center;
   height: 100vh;
   font-size: 2rem;
-}
-
-.restart-button {
-  margin-top: 16px;
-  padding: 8px 16px;
-  border-radius: 8px;
-  background-color: #007bff;
-  color: white;
-  font-size: 12px;
-  border: none;
-  cursor: pointer;
-  height: 48px;
-  width: 128px;
 }
 </style>

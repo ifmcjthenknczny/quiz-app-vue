@@ -9,18 +9,18 @@ const props = defineProps<{
   highlightIfAnswered?: true
 }>()
 
-const questionNumberStore = useQuestions()
+const questionStore = useQuestions()
 
 const onClick = (questionNumber: number) => {
-  questionNumberStore.setQuestionNumber(questionNumber)
+  questionStore.setQuestionNumber(questionNumber)
 }
 
 const answered = computed(() => {
-  return questionNumberStore.selectedAnswers.hasOwnProperty(props.questionNumber - 1)
+  return questionStore.selectedAnswers.hasOwnProperty(props.questionNumber - 1)
 })
 
 const answer = computed(() => {
-  return toOptionLetter(questionNumberStore.selectedAnswers[props.questionNumber - 1])
+  return toOptionLetter(questionStore.selectedAnswers[props.questionNumber - 1])
 })
 </script>
 

@@ -19,3 +19,7 @@ export const toOptionColor = (index: number): string => {
     }
     return ''
 }
+
+export const toQuestionNumber = (questionIndex: number) => {
+    return questionIndex + 1
+}
