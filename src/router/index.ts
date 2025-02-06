@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import HomeView from '../views/QuizView.vue'
+import HomeView from '../views/WelcomeView.vue'
 import SummaryView from '@/views/SummaryView.vue'
 import { routes } from '@/routes'
+import QuizView from '../views/QuizView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,7 +17,7 @@ const router = createRouter({
     {
       path: routes.quiz,
       name: 'quiz',
-      component: () => import('../views/BottomView.vue')
+      component: QuizView
     },
     {
       path: routes.summary,

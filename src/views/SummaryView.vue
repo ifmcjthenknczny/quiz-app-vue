@@ -17,12 +17,12 @@ const router = useRouter()
 
 const onClick = () => {
   questionNumberStore.reset()
-  router.push(routes.home)
+  router.push(routes.quiz)
 }
 
 onMounted(() => {
   if (questionNumberStore.answeredQuestions !== QUESTION_COUNT) {
-    router.push(routes.home)
+    router.push(routes.quiz)
   }
 })
 </script>
