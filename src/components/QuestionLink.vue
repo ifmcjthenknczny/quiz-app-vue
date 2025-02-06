@@ -15,9 +15,7 @@ const onClick = (questionNumber: number) => {
   questionStore.setQuestionNumber(questionNumber)
 }
 
-const answered = computed(() => {
-  return questionStore.selectedAnswers.hasOwnProperty(props.questionNumber - 1)
-})
+const answered = computed(() => `${props.questionNumber - 1}` in questionStore.selectedAnswers)
 
 const answer = computed(() => {
   return toOptionLetter(questionStore.selectedAnswers[props.questionNumber - 1])
@@ -30,8 +28,4 @@ const answer = computed(() => {
   </button>
 </template>
 
-<style scoped>
-.answered {
-  background-color: green;
-}
-</style>
+<style scoped></style>

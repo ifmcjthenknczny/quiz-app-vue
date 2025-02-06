@@ -32,9 +32,7 @@ onMounted(() => {
   <div class="summary-container">
     <h1>END OF QUIZ</h1>
     <h5>Your score: {{ correctAnswers.length }} / {{ QUESTION_COUNT }}</h5>
-    <LinkButton @click="onClick">
-      Restart Quiz
-    </LinkButton>
+    <LinkButton @click="onClick"> Restart Quiz </LinkButton>
   </div>
 </template>
 

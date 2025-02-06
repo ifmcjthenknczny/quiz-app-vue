@@ -13,9 +13,7 @@ const onClick = () => {
 <template>
   <div class="welcome-container">
     <h1>WELCOME TO SPORTS QUIZ</h1>
-    <LinkButton :on-click="onClick">
-      Start Quiz
-    </LinkButton>
+    <LinkButton :on-click="onClick"> Start Quiz </LinkButton>
   </div>
 </template>
 

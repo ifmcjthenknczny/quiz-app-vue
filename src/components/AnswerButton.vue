@@ -4,9 +4,9 @@ import { Option, toOptionColor } from '@/helpers/question'
 import { computed } from 'vue'
 
 const props = defineProps<{
-  option: Option;
-  answerContent: string;
-  index: number;
+  option: Option
+  answerContent: string
+  index: number
   onClick: (questionNumber: number, answerIndex: number) => void
 }>()
 
