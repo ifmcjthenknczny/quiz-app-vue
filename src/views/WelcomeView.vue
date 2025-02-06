@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import { routes } from '@/routes'
-import LinkButton from '@/components/LinkButton.vue';
+import LinkButton from '@/components/LinkButton.vue'
 
 const router = useRouter()
 
@@ -13,7 +13,9 @@ const onClick = () => {
 <template>
   <div class="welcome-container">
     <h1>WELCOME TO SPORTS QUIZ</h1>
-    <LinkButton :onClick="onClick">Start Quiz</LinkButton>
+    <LinkButton :on-click="onClick">
+      Start Quiz
+    </LinkButton>
   </div>
 </template>
 

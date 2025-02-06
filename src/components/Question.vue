@@ -32,7 +32,9 @@ const handleAnswerClick = (questionNumber: number, answerIndex: number) => {
 <template>
   <div class="question">
     <div>
-      <h5 class="question-text">Question number {{ toQuestionNumber(questionStore.questionIndex) }}</h5>
+      <h5 class="question-text">
+        Question number {{ toQuestionNumber(questionStore.questionIndex) }}
+      </h5>
       <h2>{{ decodeHtml(question) }}</h2>
     </div>
 
@@ -42,7 +44,7 @@ const handleAnswerClick = (questionNumber: number, answerIndex: number) => {
         :key="index"
         :index="index"
         :option="toOptionLetter(index)"
-        :answerContent="decodeHtml(answer)"
+        :answer-content="decodeHtml(answer)"
         @click="handleAnswerClick"
       />
     </div>

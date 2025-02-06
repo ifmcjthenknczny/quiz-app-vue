@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useQuestions } from '@/store/useQuestions'
 import { computed } from 'vue'
-import { toOptionLetter } from '@/helpers/question';
+import { toOptionLetter } from '@/helpers/question'
 
 const props = defineProps<{
   questionNumber: number
@@ -25,11 +25,8 @@ const answer = computed(() => {
 </script>
 
 <template>
-  <button
-    @click="() => onClick(questionNumber - 1)"
-  >
-    {{ highlightIfAnswered &&
-        answered ? answer : content ?? questionNumber }}
+  <button @click="() => onClick(questionNumber - 1)">
+    {{ highlightIfAnswered && answered ? answer : (content ?? questionNumber) }}
   </button>
 </template>
 

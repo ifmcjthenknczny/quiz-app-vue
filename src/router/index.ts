@@ -13,7 +13,7 @@ const router = createRouter({
       name: 'home',
       component: HomeView
     },
-    
+
     {
       path: routes.quiz,
       name: 'quiz',

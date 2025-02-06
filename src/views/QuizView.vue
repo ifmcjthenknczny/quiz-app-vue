@@ -55,12 +55,12 @@ const fetchData = async () => {
     }
     quiz.value = response.data.results.map(toQuizElement)
     const correctAnswers = quiz.value.reduce(
-        (acc, question, index) => {
-          acc[index] = question.correctOption
-          return acc
-        },
-        {} as Record<number, number>
-      )
+      (acc, question, index) => {
+        acc[index] = question.correctOption
+        return acc
+      },
+      {} as Record<number, number>
+    )
     questionStore.setCorrectAnswers(correctAnswers)
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'An error occurred'
@@ -94,8 +94,8 @@ onMounted(() => {
       <QuestionLink
         v-for="index in QUESTION_COUNT"
         :key="index"
-        :questionNumber="index"
-        :highlightIfAnswered="true"
+        :question-number="index"
+        :highlight-if-answered="true"
       />
     </div>
   </main>

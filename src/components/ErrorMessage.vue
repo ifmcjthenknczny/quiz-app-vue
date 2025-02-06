@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineProps<{
-    message?: string
+  message?: string
 }>()
 
 const DEFAULT_MESSAGE = 'Something went wrong'
@@ -8,7 +8,7 @@ const DEFAULT_MESSAGE = 'Something went wrong'
 
 <template>
   <div class="error">
-    <img src="/error.png">
+    <img src="/error.png" />
     <p>{{ message ?? DEFAULT_MESSAGE }}</p>
   </div>
 </template>

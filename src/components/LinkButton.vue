@@ -1,13 +1,13 @@
 <script setup lang="ts">
 defineProps<{
-    onClick: () => void
+  onClick: () => void
 }>()
 </script>
 
 <template>
-    <button @click="onClick" class="link-button">
-        <slot />
-    </button>
+  <button class="link-button" @click="onClick">
+    <slot />
+  </button>
 </template>
 
 <style scoped>
