@@ -2,7 +2,7 @@
 
 This project is a quiz application built with Vue 3. It fetches trivia questions of sports theme from an external API and allows user to answer them.
 
-[Deployed quiz](https://quiz-app-vue.vercel.app/)  
+[Deployed quiz](https://quiz-app-vue-rho.vercel.app/)  
 
 > <ins>Note:</ins> App is not yet finished. I need to enhance its responsivity, add some new features and give it a better overall look.
 
