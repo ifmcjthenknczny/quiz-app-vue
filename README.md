@@ -1,61 +1,45 @@
-# quiz-app-trivia-api
+# quiz-app-vue
 
-This template should help get you started developing with Vue 3 in Vite.
+This project is a quiz application built with Vue 3. It fetches trivia questions of sports theme from an external API and allows user to answer them.
 
-## Recommended IDE Setup
+[Deployed quiz](https://quiz-app-vue.vercel.app/)  
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+> <ins>Note:</ins> App is not yet finished. I need to enhance its responsivity, add some new features and give it a better overall look.
 
-## Type Support for `.vue` Imports in TS
+## Technologies
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+- Vue 3.4.29
+- Typescript 5.4.0
+- Vite 5.3.1
+- Pinia 2.1.7
 
-## Customize configuration
+## Features
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+- Ability to go back to any question and change given answer
+- Summary view of the user's score.
+- Showing answers so far during the quiz
 
-## Project Setup
+## Setup
 
-```sh
-npm install
+If you do not have yarn installed, run the below command first:
+```bash
+npm install -g yarn
 ```
 
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
+To run the app locally in dev mode, paste command below into your terminal and confirm:
+```bash
+git clone https://github.com/ifmcjthenknczny/quiz-app-vue && cd quiz-app-vue && yarn install && yarn dev
 ```
 
-### Type-Check, Compile and Minify for Production
+## Motivation
 
-```sh
-npm run build
-```
+The main motivation for this task was to build a simple app using Vue to familiarize myself with the framework. Additionally, it served as an entry task for a company that shall remain nameless.
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+## License
 
-```sh
-npm run test:unit
-```
+This work is licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License](https://creativecommons.org/licenses/by-nc/4.0/).
 
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
+## Contact
 
-```sh
-npm run test:e2e:dev
-```
-
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
-
-```sh
-npm run build
-npm run test:e2e
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+Created purely by [Maciej Konieczny](https://github.com/ifmcjthenknczny).  
+Project Link: [https://github.com/ifmcjthenknczny/quiz-app-vue](https://github.com/ifmcjthenknczny/quiz-app-vue)

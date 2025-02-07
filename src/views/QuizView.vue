@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import { shuffle } from '@/helpers/array'
-import Question from '@/components/Question.vue'
+import Question from '@/components/QuestionComponent.vue'
 import QuestionLink from '@/components/QuestionLink.vue'
 import { useQuestions } from '@/store/useQuestions'
 import { QUESTION_COUNT } from '@/config'
