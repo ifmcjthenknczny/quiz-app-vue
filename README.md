@@ -18,6 +18,7 @@ This project is a quiz application built with Vue 3. It fetches trivia questions
 - Ability to go back to any question and change given answer
 - Summary view of the user's score.
 - Showing answers so far during the quiz
+- Automatically redirect to closest unanswered question after answering
 
 ## Setup
 
