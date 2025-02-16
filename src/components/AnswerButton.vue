@@ -7,7 +7,7 @@ const props = defineProps<{
   option: Option
   answerContent: string
   index: number
-  onClick: (questionNumber: number, answerIndex: number) => void
+  onClick: (questionIndex: number, answerIndex: number) => void
 }>()
 
 const questionStore = useQuestions()
@@ -18,7 +18,7 @@ const color = computed(() => toOptionColor(props.index))
   <button
     class="answer-button"
     :style="{ backgroundColor: color }"
-    @click="() => onClick(questionStore.questionIndex, index)"
+    @click="() => onClick(questionStore.currentQuestionIndex, index)"
   >
     {{ option }}: {{ answerContent }}
   </button>

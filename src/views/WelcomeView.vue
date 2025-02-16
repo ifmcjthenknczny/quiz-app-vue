@@ -12,8 +12,10 @@ const onClick = () => {
 
 <template>
   <div class="welcome-container">
+    <!-- https://www.favicon.cc/?action=icon&file_id=823471 -->
+    <img src="/logo.png" alt="Q" />
     <h1>WELCOME TO SPORTS QUIZ</h1>
-    <LinkButton :on-click="onClick"> Start Quiz </LinkButton>
+    <LinkButton :on-click="onClick">Start Quiz</LinkButton>
   </div>
 </template>
 

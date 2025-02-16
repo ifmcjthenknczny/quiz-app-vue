@@ -83,8 +83,8 @@ onMounted(() => {
 
       <div v-else-if="quiz" class="quiz-container">
         <Question
-          :question="quiz[questionStore.questionIndex]?.question"
-          :answers="quiz[questionStore.questionIndex]?.options"
+          :question="quiz[questionStore.currentQuestionIndex]?.question"
+          :answers="quiz[questionStore.currentQuestionIndex]?.options"
         />
       </div>
 

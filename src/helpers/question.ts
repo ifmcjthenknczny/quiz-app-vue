@@ -23,3 +23,7 @@ export const toOptionColor = (index: number): string => {
 export const toQuestionNumber = (questionIndex: number) => {
   return questionIndex + 1
 }
+
+export const toQuestionIndex = (questionNumber: number) => {
+  return questionNumber - 1
+}

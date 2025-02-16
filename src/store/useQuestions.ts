@@ -4,31 +4,50 @@ import { ref, computed } from 'vue'
 import { QUESTION_COUNT } from '@/config'
 
 export const useQuestions = defineStore('questions', () => {
-  const questionIndex = ref(0)
+  const currentQuestionIndex = ref(0)
   const selectedAnswers = ref<Record<number, number>>({})
   const correctAnswers = ref<Record<number, number>>({})
+  const timeStarted = ref<number>(Date.now())
+  const timeSpent = ref<Record<number, number>>({})
 
   function reset() {
-    questionIndex.value = 0
+    currentQuestionIndex.value = 0
     selectedAnswers.value = {}
     correctAnswers.value = {}
-  }
-
-  function selectAnswer(questionNumber: number, answer: number) {
-    selectedAnswers.value[questionNumber] = answer
+    timeStarted.value = Date.now()
+    timeSpent.value = {}
   }
 
   function setCorrectAnswers(answers: Record<number, number>) {
     correctAnswers.value = answers
   }
 
-  function setQuestionNumber(number: number) {
-    questionIndex.value = number
+  function setNewTimeStarted() {
+    timeStarted.value = Date.now()
+  }
+
+  function addTimeSpent(questionIndex: number) {
+    const timeForAnswer = Date.now() - timeStarted.value
+    if (!timeSpent.value[questionIndex]) {
+      timeSpent.value[questionIndex] = timeForAnswer
+      return
+    }
+    timeSpent.value[questionIndex] += timeForAnswer
+  }
+
+  function setQuestionIndex(nextQuestionIndex: number) {
+    addTimeSpent(currentQuestionIndex.value)
+    currentQuestionIndex.value = nextQuestionIndex
+    setNewTimeStarted()
+  }
+
+  function selectAnswer(questionIndex: number, answer: number) {
+    selectedAnswers.value[questionIndex] = answer
   }
 
   const nextQuestionIndex = computed(
     () =>
-      sortedRange(0, QUESTION_COUNT - 1, questionIndex.value).filter(
+      sortedRange(0, QUESTION_COUNT - 1, currentQuestionIndex.value).filter(
         (key) => !(key in selectedAnswers.value)
       )[0]
   )
@@ -37,15 +56,17 @@ export const useQuestions = defineStore('questions', () => {
   const answeredQuestions = computed(() => Object.keys(selectedAnswers.value).length)
 
   return {
-    questionIndex,
+    currentQuestionIndex,
     selectedAnswers,
     correctAnswers,
     reset,
     selectAnswer,
     setCorrectAnswers,
-    setQuestionNumber,
+    setQuestionIndex,
     nextQuestionIndex,
     totalQuestions,
-    answeredQuestions
+    answeredQuestions,
+    timeSpent,
+    addTimeSpent
   }
 })

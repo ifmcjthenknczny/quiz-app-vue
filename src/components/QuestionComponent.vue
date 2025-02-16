@@ -16,14 +16,15 @@ defineProps<{
 const router = useRouter()
 const questionStore = useQuestions()
 
-const handleAnswerClick = (questionNumber: number, answerIndex: number) => {
-  questionStore.selectAnswer(questionNumber, answerIndex)
+const handleAnswerClick = (questionIndex: number, answerIndex: number) => {
+  questionStore.selectAnswer(questionIndex, answerIndex)
 
   if (Object.keys(questionStore.selectedAnswers).length >= QUESTION_COUNT) {
+    questionStore.addTimeSpent(questionIndex)
     router.push(routes.summary)
     return
   } else {
-    questionStore.setQuestionNumber(questionStore.nextQuestionIndex)
+    questionStore.setQuestionIndex(questionStore.nextQuestionIndex)
   }
 }
 </script>
@@ -32,7 +33,7 @@ const handleAnswerClick = (questionNumber: number, answerIndex: number) => {
   <div class="question">
     <div>
       <h5 class="question-text">
-        Question number {{ toQuestionNumber(questionStore.questionIndex) }}
+        Question number {{ toQuestionNumber(questionStore.currentQuestionIndex) }}
       </h5>
       <h2>{{ decodeHtml(question) }}</h2>
     </div>
