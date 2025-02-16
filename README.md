@@ -1,6 +1,6 @@
 # quiz-app-vue
 
-This project is a quiz application built with Vue 3. It fetches trivia questions of sports theme from an external API and allows user to answer them.
+This project is a quiz application built with Vue 3. It fetches trivia questions of sports theme from an external API and allows user to answer them. After answering all of them, there is short summary and possibility to restart the quiz.
 
 [Deployed quiz](https://quiz-app-vue-rho.vercel.app/)  
 
@@ -16,8 +16,9 @@ This project is a quiz application built with Vue 3. It fetches trivia questions
 ## Features
 
 - Ability to go back to any question and change given answer
-- Summary view of the user's score.
-- Showing answers so far during the quiz
+- Summary view of the user's score and right/wrong answers
+- Summary graph of user's time spent on right/wrong answers
+- Showing progress of the quiz
 - Automatically redirect to closest unanswered question after answering
 
 ## Setup

@@ -17,9 +17,12 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "classnames": "^2.5.1",
+    "echarts": "^5.6.0",
     "he": "^1.2.0",
     "pinia": "^2.1.7",
     "vue": "^3.4.29",
+    "vue-echarts": "^7.0.3",
     "vue-router": "^4.3.3"
   },
   "devDependencies": {

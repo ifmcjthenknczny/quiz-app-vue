@@ -3,10 +3,10 @@ import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import { shuffle } from '@/helpers/array'
 import Question from '@/components/QuestionComponent.vue'
-import QuestionLink from '@/components/QuestionLink.vue'
+import QuestionLink from '@/components/QuestionLinkComponent.vue'
 import { useQuestions } from '@/store/useQuestions'
 import { QUESTION_COUNT } from '@/config'
-import ErrorMessage from '@/components/ErrorMessage.vue'
+import ErrorMessage from '@/components/ErrorMessageComponent.vue'
 import Loader from '@/components/LoaderComponent.vue'
 
 type QuestionData = {

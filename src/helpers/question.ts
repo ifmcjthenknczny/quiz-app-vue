@@ -27,3 +27,31 @@ export const toQuestionNumber = (questionIndex: number) => {
 export const toQuestionIndex = (questionNumber: number) => {
   return questionNumber - 1
 }
+
+const answersToBooleanArray = (
+  answers: Record<number, number>,
+  correctAnswers: Record<number, number>
+) => {
+  const sortedAnswers = Object.keys(answers).sort()
+
+  return sortedAnswers.map(
+    (questionIndex) => answers[+questionIndex] === correctAnswers[+questionIndex]
+  )
+}
+
+export const divideToCorrectAndWrongAnswers = (
+  answers: Record<number, number>,
+  correctAnswers: Record<number, number>
+) => {
+  const computedAnswersResult = answersToBooleanArray(answers, correctAnswers)
+
+  const correct: number[] = []
+  const wrong: number[] = []
+  for (let i = 0; i < computedAnswersResult.length; i++) {
+    ;(computedAnswersResult[i] ? correct : wrong).push(i)
+  }
+  return {
+    correct,
+    wrong
+  }
+}

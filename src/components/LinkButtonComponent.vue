@@ -17,10 +17,10 @@ defineProps<{
   border-radius: 8px;
   background-color: #007bff;
   color: white;
-  font-size: 12px;
+  font-size: 1.2rem;
   border: none;
   cursor: pointer;
   height: 48px;
-  width: 128px;
+  width: 160px;
 }
 </style>

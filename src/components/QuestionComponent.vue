@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { decodeHtml } from '@/helpers/string'
-import AnswerButton from './AnswerButton.vue'
+import AnswerButton from './AnswerButtonComponent.vue'
 import { useQuestions } from '@/store/useQuestions'
 import { QUESTION_COUNT } from '@/config'
 import { useRouter } from 'vue-router'

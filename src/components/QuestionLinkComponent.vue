@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useQuestions } from '@/store/useQuestions'
 import { computed } from 'vue'
-import { toOptionLetter, toQuestionIndex } from '@/helpers/question'
+import { toQuestionIndex, toQuestionNumber } from '@/helpers/question'
 
 const props = defineProps<{
   questionNumber: number
@@ -18,16 +18,33 @@ const onClick = (questionIndex: number) => {
 }
 
 const answered = computed(() => `${questionIndex}` in questionStore.selectedAnswers)
-
-const answer = computed(() => {
-  return toOptionLetter(questionStore.selectedAnswers[questionIndex])
-})
 </script>
 
 <template>
-  <button @click="() => onClick(questionIndex)">
-    {{ highlightIfAnswered && answered ? answer : (content ?? questionNumber) }}
+  <button
+    class="question-link"
+    :class="{
+      answered: answered,
+      current: questionNumber === toQuestionNumber(questionStore.currentQuestionIndex)
+    }"
+    @click="() => onClick(questionIndex)"
+  >
+    {{ questionNumber }}
   </button>
 </template>
 
-<style scoped></style>
+<style scoped>
+.question-link {
+  height: 24px;
+  width: 24px;
+  border: 1px solid black;
+  border-radius: 4px;
+}
+.answered {
+  background-color: green;
+}
+
+.current {
+  background-color: gold;
+}
+</style>

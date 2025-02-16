@@ -27,6 +27,8 @@ const color = computed(() => toOptionColor(props.index))
 <style scoped>
 .answer-button {
   min-height: 36px;
+  border: 1px solid black;
+  cursor: pointer;
 }
 .answer-letter {
   font-weight: 700;

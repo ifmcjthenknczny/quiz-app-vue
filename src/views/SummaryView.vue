@@ -3,16 +3,18 @@ import { useQuestions } from '@/store/useQuestions'
 import { QUESTION_COUNT } from '@/config'
 import { useRouter } from 'vue-router'
 import { routes } from '@/routes'
-import { onMounted, computed } from 'vue'
-import LinkButton from '@/components/LinkButton.vue'
+import { onMounted } from 'vue'
+import LinkButton from '@/components/LinkButtonComponent.vue'
+import { divideToCorrectAndWrongAnswers } from '@/helpers/question'
+import SummaryChart from '@/components/SummaryChart.vue'
+import AnswersSummary from '@/components/AnswersSummary.vue'
 
 const questionStore = useQuestions()
 
-const correctAnswers = computed(() =>
-  Object.entries(questionStore.selectedAnswers)
-    .filter(([index, answer]) => questionStore.correctAnswers[+index] === answer)
-    .map(([index]) => +index)
-)
+const correctAnswersCount = divideToCorrectAndWrongAnswers(
+  questionStore.selectedAnswers,
+  questionStore.correctAnswers
+).correct.length
 
 const router = useRouter()
 
@@ -31,7 +33,11 @@ onMounted(() => {
 <template>
   <div class="summary-container">
     <h1>END OF QUIZ</h1>
-    <h5>Your score: {{ correctAnswers.length }} / {{ QUESTION_COUNT }}</h5>
+    <h5>Your score: {{ correctAnswersCount }} / {{ QUESTION_COUNT }}</h5>
+    <div class="charts-container">
+      <AnswersSummary />
+      <SummaryChart />
+    </div>
     <LinkButton @click="onClick"> Restart Quiz </LinkButton>
   </div>
 </template>
@@ -44,5 +50,14 @@ onMounted(() => {
   align-items: center;
   height: 100vh;
   font-size: 2rem;
+}
+
+.charts-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  align-items: center;
+  gap: 20px;
 }
 </style>
