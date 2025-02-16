@@ -20,12 +20,15 @@ const color = computed(() => toOptionColor(props.index))
     :style="{ backgroundColor: color }"
     @click="() => onClick(questionStore.currentQuestionIndex, index)"
   >
-    {{ option }}: {{ answerContent }}
+    <span class="answer-letter">{{ option }}:</span> {{ answerContent }}
   </button>
 </template>
 
 <style scoped>
 .answer-button {
   min-height: 36px;
+}
+.answer-letter {
+  font-weight: 700;
 }
 </style>
